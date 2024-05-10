@@ -30,7 +30,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="pt-6 pb-2 px-8">
-                            <Link href="/homepage">
+                            <Link href="/admindashboard">
                                 <button className="block w-full text-left transition-colors duration-300 hover:text-blue-600 flex">
                                     <FiUser className="mr-2 mt-1" />Employees
                                 </button>
@@ -62,37 +62,42 @@ export default function Home() {
                         <thead className="bg-slate-200">
                             <tr>
                                 <th className="border border-black px-4 py-2">Name</th>
-                                <th className="border border-black px-4 py-2">Email</th>
-                                <th className="border border-black px-4 py-2">Phone Number</th>
-                                <th className="border border-black px-4 py-2">Password</th>
-                                <th className="border border-black px-4 py-2">Edit</th>
-                                <th className="border border-black px-4 py-2">Delete</th>
+                                <th className="border border-black px-4 py-2">FROM</th>
+                                <th className="border border-black px-4 py-2">TO</th>
+                                <th className="border border-black px-4 py-2">Status</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td className="border border-black px-4 py-2 text-center">Mahendra Singh Dhoni</td>
-                                <td className="border border-black px-4 py-2 text-center">msd@gmail.com</td>
-                                <td className="border border-black px-4 py-2 text-center">7777777777</td>
-                                <td className="border border-black px-4 py-2 text-center">2011</td>
-                                <td className="border border-black px-4 py-2 text-center"><button><FaRegEdit /></button></td>
-                                <td className="border border-black px-4 py-2 text-center"><button><MdDeleteOutline /></button></td>
+                                <td className="border border-black px-4 py-2 text-center">05/02/2024</td>
+                                <td className="border border-black px-4 py-2 text-center">07/02/2024</td>
+                                <td className="border border-black px-4 py-2 text-center ">
+                                    <button className=' mr-2 px-2 w-20 border hover:bg-green-600'>Accept</button>
+                                    <button className='px-2 w-20 border hover:bg-red-600'>Reject</button>
+                                </td>
+
                             </tr>
                             <tr>
                                 <td className="border border-black px-4 py-2 text-center">Suresh Raina</td>
-                                <td className="border border-black px-4 py-2 text-center">suresh@gmail.com</td>
-                                <td className="border border-black px-4 py-2 text-center">9876543231</td>
-                                <td className="border border-black px-4 py-2 text-center">2014</td>
-                                <td className="border border-black px-4 py-2 text-center"><button><FaRegEdit /></button></td>
-                                <td className="border border-black px-4 py-2 text-center"><button><MdDeleteOutline /></button></td>
+                                <td className="border border-black px-4 py-2 text-center">15/02/2024</td>
+                                <td className="border border-black px-4 py-2 text-center">25/02/2024</td>
+                                <td className="border border-black px-4 py-2 text-center">
+                                    <button className=' mr-2 px-2 w-20 border hover:bg-green-600'>Accept</button>
+                                    <button className='px-2 w-20 border hover:bg-red-600'>Reject</button>
+                                </td>
+
                             </tr>
                             <tr>
                                 <td className="border border-black px-4 py-2 text-center">Virat Kohli</td>
-                                <td className="border border-black px-4 py-2 text-center">virat@gmail.com</td>
-                                <td className="border border-black px-4 py-2 text-center">8888888888</td>
-                                <td className="border border-black px-4 py-2 text-center">2016</td>
-                                <td className="border border-black px-4 py-2 text-center"><button><FaRegEdit /></button></td>
-                                <td className="border border-black px-4 py-2 text-center"><button><MdDeleteOutline /></button></td>
+                                <td className="border border-black px-4 py-2 text-center">11/02/2024</td>
+                                <td className="border border-black px-4 py-2 text-center">12/02/2024</td>
+                                <td className="border border-black px-4 py-2 text-center">
+                                    <button className=' mr-2 px-2 w-20 border hover:bg-green-600'>Accept</button>
+                                    <button className='px-2 w-20 border hover:bg-red-600'>Reject</button>
+                                </td>
+
                             </tr>
                         </tbody>
                     </table>
