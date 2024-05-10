@@ -1,3 +1,4 @@
+
 import Image from "next/image"
 import logo from "../../../public/Logo.png"
 
@@ -18,7 +19,7 @@ export default function Sigup() {
                 </div>
 
                 <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" action="../api/users/signup" method="POST">
 
                         <div>
                             <div className="flex items-center justify-between">
