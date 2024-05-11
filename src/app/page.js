@@ -1,10 +1,33 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
-import logo from "../../public/Logo.png"
+import logo from "../../public/Logo.png";
+import axios from "axios";
 
 export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("/api/users/login", {
+        email,
+        password,
+      });
+      if (response.status === 200) {
+        
+        router.push("/admindashboard"); // Redirect to dashboard or any protected route
+     }
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
   return (
     <>
-
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
@@ -18,9 +41,12 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit} method="POST">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-white"
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -38,11 +64,17 @@ export default function Login() {
 
             <div>
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-white"
+                >
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  <a
+                    href="#"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  >
                     Forgot password?
                   </a>
                 </div>
@@ -68,15 +100,19 @@ export default function Login() {
               </button>
             </div>
 
-            <div className="text-sm mr">Didn't have an account?
-              <a href="./signup" className="font-semibold text-indigo-600 hover:text-indigo-500 p-2">
+            <div className="text-sm mr">
+              Didn't have an account?
+              <a
+                href="./signup"
+                className="font-semibold text-indigo-600 hover:text-indigo-500 p-2"
+              >
                 Create new account
               </a>
             </div>
-
           </form>
+          {error && <p className="text-red-500 text-center">{error}</p>}
         </div>
       </div>
     </>
-  )
+  );
 }

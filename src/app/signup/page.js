@@ -1,14 +1,17 @@
 'use client';
 import React  from "react";
+//import { useRouter } from "next/router";
+// import { redirect } from 'next/navigation'
 import Image from "next/image"
 import logo from "../../../public/Logo.png"
 import axios from 'axios';
 
 export default function Signup() {
-   
+    //const router = useRouter();
+    
     const handleSubmit = async (event) => {
         event.preventDefault(); 
-
+        
         const formData = new FormData(event.target);
         try {
             console.log("Inside frontend try block")
@@ -22,6 +25,8 @@ export default function Signup() {
             // alert("User Created");
             // console.log(response);
             alert(response.data.message);
+            //router.push('/');
+           //redirect('/',); 
             
         } catch (error) {
             console.log("Inside frontend catch block")
@@ -47,7 +52,7 @@ export default function Signup() {
                 </div>
 
                 <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6" method="POST">
 
                         <div>
                             <div className="flex items-center justify-between">
