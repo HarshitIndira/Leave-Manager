@@ -1,7 +1,36 @@
+'use client';
+import React  from "react";
 import Image from "next/image"
 import logo from "../../../public/Logo.png"
+import axios from 'axios';
 
-export default function Sigup() {
+export default function Signup() {
+   
+    const handleSubmit = async (event) => {
+        event.preventDefault(); 
+
+        const formData = new FormData(event.target);
+        try {
+            console.log("Inside frontend try block")
+            const response = await axios.post('/api/users/signup', {
+                name: formData.get('name'),
+                mobile: formData.get('mobile'),
+                email: formData.get('email'),
+                password: formData.get('password')
+            });
+            console.log("User Created Successfully")
+            // alert("User Created");
+            // console.log(response);
+            alert(response.data.message);
+            
+        } catch (error) {
+            console.log("Inside frontend catch block")
+            //console.error('Error:', error);
+            console.log(response);
+            
+        }
+    };
+
     return (
         <>
 
@@ -18,7 +47,7 @@ export default function Sigup() {
                 </div>
 
                 <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form onSubmit={handleSubmit} className="space-y-6">
 
                         <div>
                             <div className="flex items-center justify-between">
@@ -32,7 +61,6 @@ export default function Sigup() {
                                     id="name"
                                     name="name"
                                     type="text"
-                                    autoComplete="current-name"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="e.g., Mahendra Singh Dhoni"
@@ -52,7 +80,6 @@ export default function Sigup() {
                                     id="mobile"
                                     name="mobile"
                                     type="phone"
-                                    autoComplete="current-password"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="  e.g., 9876543217"
@@ -69,7 +96,6 @@ export default function Sigup() {
                                     id="email"
                                     name="email"
                                     type="email"
-                                    autoComplete="email"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-00 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="e.g., msd@gmail.com"
@@ -89,7 +115,6 @@ export default function Sigup() {
                                     id="password"
                                     name="password"
                                     type="password"
-                                    autoComplete="current-password"
                                     required
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Should be more than 8 characters"
@@ -98,8 +123,7 @@ export default function Sigup() {
                         </div>
 
                         <div>
-                            <button
-                                type="submit"
+                            <button type="submit"
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Create Account
@@ -116,5 +140,5 @@ export default function Sigup() {
                 </div>
             </div>
         </>
-    )
+    );
 }
