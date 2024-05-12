@@ -143,7 +143,7 @@ export default function Login() {
         password,
       });
       if (response.status === 200) {
-        router.push("/admindashboard"); // Redirect to dashboard or any protected route
+        router.push("/homepage"); // Redirect to dashboard or any protected route
       }
     } catch (error) {
       setError(error.response.data.message);

@@ -76,8 +76,7 @@
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import pool from "../../../../dbconfig/dbconfig";
-import { serialize } from "cookie";
-
+import { setCookie, destroyCookie } from "nookies";
 
 // Export the POST handler function
 export async function POST(req, res) {
@@ -126,13 +125,12 @@ export async function POST(req, res) {
     });
     console.log("TOken created");
 
-    
-    // setCookie({ res }, "sessionToken", token, {
-    //   httpOnly: true,
-    //   maxAge: 3600, // 1 hour in seconds
-    //   path: "/", // Cookie accessible from all paths
-    //   sameSite: "strict", // Prevent CSRF attacks
-    // });
+    setCookie(res, "loginCookie", token, {
+      httpOnly: true,
+      maxAge: 3600, // 1 hour expiry
+      sameSite: "lax",
+      path: "/",
+    });
 
     return new Response(
       JSON.stringify({
