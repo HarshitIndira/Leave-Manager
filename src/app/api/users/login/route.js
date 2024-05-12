@@ -73,10 +73,11 @@
 //   }
 // }
 // Import necessary modules
-import { compare } from "bcryptjs";
+import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import pool from "../../../../dbconfig/dbconfig";
 import { serialize } from "cookie";
+
 
 // Export the POST handler function
 export async function POST(req, res) {
@@ -90,39 +91,66 @@ export async function POST(req, res) {
     const [user] = await pool.query("SELECT * FROM users WHERE email = ?", [
       email,
     ]);
-      
-      console.log(user);
+
+    console.log(user);
     // Check if user exists
     if (user.length === 0) {
       console.log("User not found");
-      return res.status(404).json({ message: "User not found" });
+      return new Response(
+        JSON.stringify({
+          message: "User not found with this email",
+        }),
+        {
+          status: "404",
+        }
+      );
     }
 
     // Check if password is valid
     const isPasswordValid = await compare(password, user[0].password);
     if (!isPasswordValid) {
       console.log("Wrong password");
-      return res.status(401).json({ message: "Incorrect Password" });
+      return new Response(
+        JSON.stringify({
+          message: "Wrong Password",
+        }),
+        {
+          status: "401",
+        }
+      );
     }
-
+    console.log("Password code executed");
     // User authenticated, generate JWT token
-    const token = sign({ userId: user[0].id }, process.env.JWT_SECRET, {
+    const token = sign({ username: user[0].name }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
+    console.log("TOken created");
 
-    // Set up session cookie
-    const cookieOptions = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 3600, // 1 hour expiration
-      path: "/", // Cookie accessible from all routes
-    };
-    res.setHeader("Set-Cookie", serialize("token", token, cookieOptions));
+    
+    // setCookie({ res }, "sessionToken", token, {
+    //   httpOnly: true,
+    //   maxAge: 3600, // 1 hour in seconds
+    //   path: "/", // Cookie accessible from all paths
+    //   sameSite: "strict", // Prevent CSRF attacks
+    // });
 
-    return res.status(200).json({ message: "Login Successful" });
+    return new Response(
+      JSON.stringify({
+        message: "Login SuccessFull",
+      }),
+      {
+        status: "200",
+      }
+    );
   } catch (error) {
     console.error("Error logging in:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
+    return new Response(
+      JSON.stringify({
+        message: "Internal Server Error",
+      }),
+      {
+        status: "500",
+      }
+    );
   }
 }

@@ -119,22 +119,24 @@
 // }
 
 // src/app/page.js
-'use client';
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "../../public/Logo.png";
 import axios from "axios";
+import Loader from "./Loader/page";
 
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setLoading(true);
     try {
       const response = await axios.post("/api/users/login", {
         email,
@@ -145,6 +147,8 @@ export default function Login() {
       }
     } catch (error) {
       setError(error.response.data.message);
+    } finally {
+      setLoading(false); // Set loading back to false after authentication process completes
     }
   };
 
@@ -236,6 +240,9 @@ export default function Login() {
               </a>
             </div>
           </form>
+          <div className="flex justify-center">
+          {loading && <Loader/>}
+          </div>
           {error && <p className="text-red-500 text-center">{error}</p>}
         </div>
       </div>
