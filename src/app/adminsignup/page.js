@@ -17,9 +17,8 @@ export default function Signup() {
     const formData = new FormData(event.target);
     try {
       console.log("Inside frontend try block");
-      const response = await axios.post("/api/users/signup", {
+      const response = await axios.post("/api/admin/signup", {
         name: formData.get("name"),
-        mobile: formData.get("mobile"),
         email: formData.get("email"),
         password: formData.get("password"),
       });
@@ -27,7 +26,7 @@ export default function Signup() {
       // alert("User Created");
       // console.log(response);
       alert(response.data.message);
-      router.push("/");
+      router.push("/admin");
       //redirect('/',);
     } catch (error) {
       console.log("Inside frontend catch block");
@@ -46,7 +45,7 @@ export default function Signup() {
             alt="Indira Securities Logo"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-            Submit form to create new account
+            Submit form to create new admin
           </h2>
         </div>
 
@@ -71,29 +70,8 @@ export default function Signup() {
                   placeholder="e.g., Mahendra Singh Dhoni"
                 />
               </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Phone Number
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="mobile"
-                  name="mobile"
-                  type="phone"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="  e.g., 9876543217"
-                />
-              </div>
-            </div>
-
+                      </div>
+                      
             <div>
               <label
                 htmlFor="email"
@@ -146,7 +124,7 @@ export default function Signup() {
             <div className="text-sm mr">
               Already have an account?
               <a
-                href="./"
+                href="/admin"
                 className="font-semibold text-indigo-600 hover:text-indigo-500 p-2"
               >
                 Login
